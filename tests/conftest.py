@@ -1,6 +1,7 @@
 """
 shared pytest fixtures
 """
+
 import functools
 import importlib
 import shutil
@@ -106,6 +107,12 @@ def download_arcee_ai_distilabel_intel_orca_dpo_pairs_dataset():
     snapshot_download_w_retry(
         "arcee-ai/distilabel-intel-orca-dpo-pairs-binarized", repo_type="dataset"
     )
+
+
+@pytest.fixture(scope="session", autouse=True)
+def download_tiny_shakespeare_dataset():
+    # download the dataset
+    snapshot_download_w_retry("Trelis/tiny-shakespeare", repo_type="dataset")
 
 
 @pytest.fixture
