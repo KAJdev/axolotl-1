@@ -153,7 +153,7 @@ def register_ring_attn(
         )
 
 
-def update_ring_attn_params(input_ids: torch.Tensor, position_ids: torch.Tensor | None):
+def update_ring_attn_params(input_ids: torch.Tensor, position_ids: torch.Tensor):
     """
     Calculate the cumulative sequence lengths for the current forward pass and pass the
     value to the substituted `ring_flash_attn`.
@@ -163,12 +163,6 @@ def update_ring_attn_params(input_ids: torch.Tensor, position_ids: torch.Tensor 
         position_ids: Optional tensor of position IDs (for sample packed data).
     """
     from ring_flash_attn import update_ring_flash_attn_params
-
-    if position_ids is None:
-        seq_len = input_ids.shape[1]
-        position_ids = torch.arange(
-            0, seq_len, dtype=torch.long, device=input_ids.device
-        ).unsqueeze(0)
 
     cu_seqlens, _ = get_cu_seqlens_from_pos_ids(position_ids)
     cu_seqlens = cu_seqlens.squeeze().to(device=torch.cuda.current_device())

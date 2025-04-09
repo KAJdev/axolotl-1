@@ -165,7 +165,7 @@ class DataCollatorForSeq2Seq:
         # Update params for varlen ring attention calculation
         if batch.get("position_ids") is not None:
             update_ring_attn_params(
-                input_ids=batch["input_ids"], position_ids=batch.get("position_ids")
+                input_ids=batch["input_ids"], position_ids=batch["position_ids"]
             )
 
         # Slice batch for sequence parallel processing
