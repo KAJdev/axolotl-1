@@ -43,9 +43,11 @@ cut_cross_entropy: true
 - mistral
 - mistral3
 - qwen2
+- qwen2_moe
 - qwen2_vl
 - qwen2_5_vl
 - qwen3
+- qwen3_moe
 - cohere
 - cohere2
 
